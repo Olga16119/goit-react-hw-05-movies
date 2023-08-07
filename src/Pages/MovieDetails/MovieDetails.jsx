@@ -9,9 +9,9 @@ const MovieDetails = () => {
   const backLinkLocation = useRef(location.state?.from ?? `/`);
   console.log(movieId);
   useEffect(() => {
-    const fetchMovieDetails = async id => {
+    const fetchMovieDetails = async()  => {
       const api_key = `a90ebb64c23761c126aa80b4b044784d`;
-      const url = `https://api.themoviedb.org/3/movie/${id}&api_key=${api_key}`;
+      const url = `https://api.themoviedb.org/3/movie/${movieId}&api_key=${api_key}`;
       try {
         const responce = await axios.get(url);
         // console.log(responce);
