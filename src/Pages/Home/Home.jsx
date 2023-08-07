@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import css from './Home.module.css';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -15,10 +16,9 @@ const Home = () => {
     try {
       const { data } = await axios.get(url);
 
-      // console.log(data.results);
       setMovies(data.results);
     } catch (error) {
-      console.log(`Error fetching movies`);
+      console.log(`Error fetching movies`, error);
     }
   };
   return (
@@ -27,7 +27,9 @@ const Home = () => {
       <ul>
         {movies.map(movie => (
           <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+            <Link to={`/movies/${movie.id}`} className={css.linkHome}>
+              {movie.title}
+            </Link>
           </li>
         ))}
       </ul>

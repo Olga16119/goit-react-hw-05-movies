@@ -1,0 +1,13 @@
+.linkHome{
+    display: block;
+    font-size: 18px;
+    color: black;
+    padding-bottom: 3px;
+    text-decoration: none;
+   
+}
+
+.linkHome:hover,
+.linkHome:focus{
+    color: blue;
+}

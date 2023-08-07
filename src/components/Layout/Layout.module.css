@@ -1,0 +1,25 @@
+/* import { NavLink } from 'react-router-dom'; */
+
+.nav {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+  padding: 20px 30px;
+  background: rgb(202, 212, 247);
+  box-shadow: 0px 10px 10px 0px rgba(16, 17, 102, 0.75);
+
+}
+.navLink{
+    text-decoration: none;
+     position: relative;
+  font-weight: 600;
+  font-size: 32px;
+  color: #000; 
+}
+.navLink:hover,
+.navLink:focus,
+.navLink.active {
+  color: rgb(63, 44, 236);
+}
+
+

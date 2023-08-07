@@ -1,0 +1,9 @@
+.cast{
+    display: flex;
+    flex-wrap: wrap;
+    width: 900px;
+    gap: 10px;
+    list-style: none;
+    font-size: 12px;
+    font-weight: 500;
+}
