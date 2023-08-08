@@ -1,7 +1,7 @@
-import axios from 'axios';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import css from './MovieDetails.module.css';
+import { fetchMovieDetails } from 'servises/api';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
@@ -9,18 +9,15 @@ const MovieDetails = () => {
   const location = useLocation();
   const backLinkLocation = useRef(location.state?.from ?? `/`);
   useEffect(() => {
-    const fetchMovieDetails = async () => {
-      const api_key = `a90ebb64c23761c126aa80b4b044784d`;
-      const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${api_key}`;
+    const movieDetails = async () => {
       try {
-        const responce = await axios.get(url);
-
-        setMovie(responce.data);
+        const data = await fetchMovieDetails(movieId);
+        setMovie(data);
       } catch (error) {
         console.log(`Error fetching movie details`, error);
       }
     };
-    fetchMovieDetails();
+    movieDetails();
   }, [movieId]);
   if (!movie) {
     return <p>Loading...</p>;

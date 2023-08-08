@@ -1,7 +1,7 @@
-import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import css from './Movies.module.css';
+import { onSearchByQuery } from 'servises/api';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -9,20 +9,17 @@ const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get(`query`) ?? ``;
 
-  const onSearch = async () => {
-    const api_key = `a90ebb64c23761c126aa80b4b044784d`;
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${query}`;
-    try {
-      const responce = await axios.get(url);
-      if (!responce.ok) {
-        console.log(`Request was not ok`);
+  useEffect(() => {
+    const onSearch = async () => {
+      try {
+        const data = await onSearchByQuery(query);
+        setMovies(data.results);
+      } catch (error) {
+        console.log(`Error fetching`, error);
       }
-      setMovies(responce.data.results);
-    } catch (error) {
-      console.log(`Error fetching`, error);
-    }
-  };
-
+    };
+    onSearch();
+  }, [query]);
   const updateQueryString = event => {
     if (event.target.value === '') {
       return setSearchParams({});
@@ -39,7 +36,7 @@ const Movies = () => {
         onChange={updateQueryString}
         placeholder="Search for a movie"
       />
-      <button className={css.buttonSearch} type="button" onClick={onSearch}>
+      <button className={css.buttonSearch} type="button">
         Search
       </button>
       <ul>

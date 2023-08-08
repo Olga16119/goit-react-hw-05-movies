@@ -1,23 +1,20 @@
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
-const { useState, useEffect } = require('react');
+import { fetchReviews } from 'servises/api';
 
+import { useState, useEffect } from 'react';
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const { movieId } = useParams();
   useEffect(() => {
-    const fetchReviews = async () => {
-      const api_key = `a90ebb64c23761c126aa80b4b044784d`;
-      const url = `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=${api_key}`;
-
+    const fetchReviewsById = async () => {
       try {
-        const { data } = await axios.get(url);
+        const data = await fetchReviews(movieId);
         setReviews([...data.results]);
       } catch (error) {
         console.log(`Error fetching reviews information`, error);
       }
     };
-    fetchReviews();
+    fetchReviewsById();
   }, [movieId]);
   if (reviews.length === 0) {
     return <div>No reviews available for this movie.</div>;
